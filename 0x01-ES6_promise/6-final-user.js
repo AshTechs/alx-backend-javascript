@@ -9,7 +9,10 @@ export default function handleProfileSignup(firstName, lastName, fileName) {
     .then((results) => {
       return results.map((result) => ({
         status: result.status === 'fulfilled' ? 'fulfilled' : 'rejected',
-        value: result.status === 'fulfilled' ? result.value : result.reason.message,
+        value: result.status === 'fulfilled' ? {
+          firstName,
+          lastName
+        } : `Error: ${fileName} cannot be processed`
       }));
     })
     .catch((error) => {
@@ -17,8 +20,8 @@ export default function handleProfileSignup(firstName, lastName, fileName) {
       return [
         {
           status: 'rejected',
-          value: `Error in handleProfileSignup: ${error.message}`,
-        },
+          value: `Error in handleProfileSignup: ${error.message}`
+        }
       ];
     });
 }
