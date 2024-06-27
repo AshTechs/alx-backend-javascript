@@ -4,7 +4,7 @@ export default async function handleProfileSignup() {
   try {
     const [photoResponse, userResponse] = await Promise.all([
       uploadPhoto(),
-      createUser()
+      createUser(),
     ]);
 
     const formattedResult = `${photoResponse.body} ${userResponse.firstName} ${userResponse.lastName}`;
