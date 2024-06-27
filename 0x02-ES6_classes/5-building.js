@@ -1,6 +1,6 @@
 export default class Building {
   constructor(sqft) {
-    if (this.constructor === Building) {
+    if (new.target === Building) {
       throw new Error('Abstract classes cannot be instantiated directly');
     }
     this._sqft = sqft;
