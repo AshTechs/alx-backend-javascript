@@ -1,20 +1,18 @@
-export const weakMap = new WeakMap();
+const weakMap = new WeakMap();
+
+export { weakMap };
 
 export function queryAPI(endpoint) {
-  if (typeof endpoint !== 'object' || !endpoint.protocol || !endpoint.name) {
-    throw new Error('Invalid endpoint configuration');
-  }
-
   if (!weakMap.has(endpoint)) {
     weakMap.set(endpoint, 0);
   }
 
-  const count = weakMap.get(endpoint) + 1;
-  weakMap.set(endpoint, count);
+  const callCount = weakMap.get(endpoint) + 1;
+  weakMap.set(endpoint, callCount);
 
-  if (count >= 5) {
+  if (callCount >= 5) {
     throw new Error('Endpoint load is high');
   }
 
-  return count;
+  return callCount;
 }
