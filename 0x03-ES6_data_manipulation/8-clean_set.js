@@ -3,20 +3,11 @@ function cleanSet(set, startString) {
     throw new TypeError('Expected a Set as the first argument');
   }
 
-  let result = '';
-  let isFirst = true;
+  const filteredValues = Array.from(set)
+    .filter((value) => value.startsWith(startString))
+    .map((value) => value.substring(startString.length));
 
-  set.forEach((value) => {
-    if (value.startsWith(startString)) {
-      if (!isFirst) {
-        result += '-';
-      }
-      result += value.substring(startString.length);
-      isFirst = false;
-    }
-  });
-
-  return result;
+  return filteredValues.join('-');
 }
 
 export default cleanSet;
