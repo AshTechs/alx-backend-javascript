@@ -1,13 +1,15 @@
-function cleanSet(set, startString) {
-  if (!(set instanceof Set)) {
-    throw new TypeError('Expected a Set as the first argument');
+export default function cleanSet(set, startString) {
+  if (!startString || typeof startString !== 'string') {
+    return '';
   }
 
-  const filteredValues = Array.from(set)
-    .filter((value) => value.startsWith(startString))
-    .map((value) => value.substring(startString.length));
+  const result = [];
 
-  return filteredValues.join('-');
+  for (const value of set) {
+    if (typeof value === 'string' && value.startsWith(startString)) {
+      result.push(value.slice(startString.length));
+    }
+  }
+
+  return result.join('-');
 }
-
-export default cleanSet;
