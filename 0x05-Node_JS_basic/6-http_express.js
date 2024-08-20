@@ -16,7 +16,7 @@ app.use((req, res) => {
 <title>Error</title>
 </head>
 <body>
-<pre>Cannot GET ${req.url}</pre>
+<pre>Cannot GET ${req.originalUrl}</pre>
 </body>
 </html>
 `);
