@@ -1,10 +1,9 @@
 const fs = require('fs').promises;
 
 /**
- * Reads and parses the CSV file to count students by field.
+ * Reads and processes the CSV file to count students by field.
  * @param {string} path - The path to the CSV file.
- * @returns {Promise<string>} A promise that resolves to a string with student counts and lists.
- * @throws {Error} If the file cannot be loaded or parsed.
+ * @returns {Promise<void>} A promise that resolves when the processing is complete.
  */
 async function countStudents(path) {
     try {
@@ -17,28 +16,30 @@ async function countStudents(path) {
 
         const headers = lines.shift().split(',');
         const fieldIndex = headers.indexOf('field');
+        
         if (fieldIndex === -1) {
-            throw new Error('Invalid file format');
+            throw new Error('Cannot find the field column');
         }
 
         const studentsByField = {};
-
-        lines.forEach((line) => {
+        lines.forEach(line => {
             const [firstName, , , field] = line.split(',');
-            if (!studentsByField[field]) {
-                studentsByField[field] = [];
+            if (field) {
+                if (!studentsByField[field]) {
+                    studentsByField[field] = [];
+                }
+                studentsByField[field].push(firstName);
             }
-            studentsByField[field].push(firstName);
         });
 
-        let result = `Number of students: ${lines.length}\n`;
+        let output = `Number of students: ${lines.length}\n`;
         for (const [field, students] of Object.entries(studentsByField)) {
-            result += `Number of students in ${field}: ${students.length}. List: ${students.join(', ')}\n`;
+            output += `Number of students in ${field}: ${students.length}. List: ${students.join(', ')}\n`;
         }
 
-        return result.trim();
+        console.log(output.trim());
     } catch (error) {
-        throw new Error('Cannot load the database');
+        console.error('Cannot load the database');
     }
 }
 
