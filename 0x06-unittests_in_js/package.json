@@ -1,0 +1,14 @@
+{
+  "name": "task_0",
+  "version": "1.0.0",
+  "description": "Mocha Testing with Node.js 12.x",
+  "main": "0-calcul.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "devDependencies": {
+    "mocha": "^8.4.0"
+  },
+  "author": "",
+  "license": "ISC"
+}
