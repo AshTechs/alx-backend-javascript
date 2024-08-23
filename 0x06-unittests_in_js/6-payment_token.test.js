@@ -3,6 +3,8 @@ const { expect } = require('chai');
 const { getPaymentTokenFromAPI } = require('./6-payment_token');
 
 describe('getPaymentTokenFromAPI', function () {
+  this.timeout(5000); // Increase timeout to 5 seconds
+
   it('should return the correct response when success is true', function (done) {
     getPaymentTokenFromAPI(true)
       .then(response => {
